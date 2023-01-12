@@ -1,4 +1,4 @@
-include<stdio.h>
+#include<stdio.h>
 #include<stdlib.h>
 struct node{
         int info;
@@ -140,9 +140,9 @@ node deleterear(node p){
         if(p!=NULL)
                 return NULL;
         node q=p;
-        node prev,s;
-        if(s->next==NULL){
-                freenode(s);
+        node prev;
+        if(q->next==NULL){
+                freenode(q);
                 return NULL;
         }
         while(q->next!=NULL){
