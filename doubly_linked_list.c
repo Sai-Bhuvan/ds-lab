@@ -45,58 +45,95 @@ NODE deletef(NODE front){
 }
 
 NODE insertrear(NODE front,int ele){
-        NODE f=front;
-        while(f->right!=NULL){
-                f=f->right;
-        }
+        NODE f=front,q;
         NODE g=getnode();
         g->info=ele;
         g->right=NULL;
         g->left=NULL;
         if(front==NULL)
                 return g;
+        if(front->right==NULL){
+                q=insertfront(front,ele);
+                return q;
+        }
+        while(f->right!=NULL){
+                f=f->right;
+        }
+        // f=f->right;
         f->right=g;
         g->left=f;
-        return g;
+        return front;
 }
 
-NODE deleterear(NODE front){
-        NODE g=front;
-        NODE f;
+NODE deleteRear(NODE p)
+{
+    NODE q = p;
+    if (q == NULL)
+    {
+        return NULL;
+    }
+    else if (q->right == NULL && q->left == NULL)
+    {
+        printf("Deleted element is %d\n", q->info);
+        freeNode(q);
+        return p;
+    }
+    else
+    {
+        while (q->right->right != NULL)
+        {
 
-        if(g==NULL){
-                printf("no elements to delete \n");
-
-                return NULL;
+            q = q->right;
         }
-        if(g->right==NULL)
-                return NULL;
-        while(g->right!=NULL){
-                f=g;
-                g=g->right;
-        }
-        f=g->left;
-        f->right=NULL;
-        freeNode(g);
-        return f;
+        NODE r = q->right;
+        printf("Deleted element is %d\n", r->info);        
+        q->right = NULL;
+        freeNode(r);
+        return p;
+    }
+    return p;
 }
-
 void disp(NODE front){
         NODE y=front;
-        if(y==NULL)
+        if(y==NULL){
+        
                 printf("no elements");
-
-        while(y->right!=NULL){
+                return;
+        }
+        if(y->right ==NULL){
+            printf("%d",y->info);
+            return;
+        }
+        while(y!=NULL){
                 printf("%d ",y->info);
                 y=y->right;
         }
+        
+}
+
+int search(NODE p, int ele)
+{
+        NODE s = p;
+        int count = 0;
+        while(s!=NULL)
+        {
+                if(s->info == ele)
+                {
+                        count++;
+                        return count;
+                }
+                count++;
+                s=s->right;
+        }
+        if(s==NULL)
+                return -1;
 }
 
 void main(){
         NODE first=NULL;
-        int ele,c;
+        int ele,c,y;
         while(1){
-                printf("1: insert front 2:delete front 3:insert rear 4:delete rear 5:display");
+                printf("1: insert front 2:delete front 3:insert rear 4:delete rear 5:search 6:display");
                 scanf("%d",&c);
                 switch(c){
                         case 1:printf("enter ele to insert \n");
@@ -109,14 +146,14 @@ void main(){
                                 scanf("%d",&ele);
                                 first=insertrear(first,ele);
                                 break;
-                        case 4:first=deleterear(first);
+                        case 4:first=deleteRear(first);
                                break;
-                        case 5:disp(first);
+                        case 5:printf("enter ele to search \n");
+                                scanf("%d",&ele);
+                                y=search(first,ele);
+                                printf("%d \n",y);
+                        case 6:disp(first);
                                break;
                 }
         }
-}
-
-
-
-                                               
+}                                              
