@@ -22,8 +22,8 @@ int underflow(int count){
 }
 
 void insert(int ele,struct cq *q){
-        if(overflow(q->count)==1){
-                q->rear=(q->rear)%max;
+        if(overflow(q->count)){
+                q->rear=(q->rear+1)%max;
                 q->arr[q->rear]=ele;
                 q->count++;
         }
@@ -33,9 +33,9 @@ void insert(int ele,struct cq *q){
 }
 int delete(struct cq *q){
         int ele;
-        if(underflow(q->count)==1){
+        if(underflow(q->count)){
                 ele=q->arr[q->front];
-                q->front=(q->front-1)%max;
+                q->front=(q->front+1)%max;
                 q->count--;
                 return ele;
         }
