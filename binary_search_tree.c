@@ -9,7 +9,7 @@ struct node{
 
 typedef struct node *NODE;
 
-NODE insertBST(int x,NODE root){
+NODE insertBST(NODE root,int x){
     NODE temp=(NODE)malloc(sizeof(struct node));
     temp->data=x;
     temp->rlink=NULL;
@@ -74,13 +74,38 @@ void postorder(NODE root)
     printf("%d\t", root->data);
 }
 
+void search(NODE root,int ele){
+    NODE p=root;
+    
+    while(p!=NULL){
+        if(p->data==ele){
+            printf("ele found");
+            return;
+        }
+        
+        if(ele>p->data){
+            if(p->rlink==NULL){
+                printf("ele not found");
+                return ;
+            }
+            p=p->rlink;
+        }
+        else{
+            if(p->llink==NULL){
+                printf("ele not found ");
+                return ;
+            }
+            p=p->llink;
+        }
+    }
+}
 void main()
 {
     int a, ele;
     NODE root;
     while (1)
     {
-        printf("Enter 1. Insert\n2. Inorder\n3. Preorder\n4. Postorder\n");
+        printf("Enter 1. Insert\n2. Inorder\n3. Preorder\n4. Postorder \n 5:search\n");
         printf("->\t");
         scanf("%d", &a);
         switch (a)
@@ -103,9 +128,12 @@ void main()
             printf("\n");
             break;
 
+        case 5:
+            search(root,5);
+            break;
+            
         default:
             break;
         }
     }
 }
-
