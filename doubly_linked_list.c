@@ -129,6 +129,28 @@ int search(NODE p, int ele)
                 return -1;
 }
 
+// order of insertion
+void dispinsertion(node front){
+    node q=front;
+    while(q->right!=NULL)
+        q=q->right;
+    while(q->left!=NULL){
+        printf("%d ",q->info);
+        q=q->left;
+    }
+    printf("\n");
+}
+
+// reverse order of insertion
+void dispreverse(node front){
+    node q=front;
+    while(q!=NULL){
+        printf("%d ",q->info);
+        q=q->right;
+    }
+        
+}
+
 void main(){
         NODE first=NULL;
         int ele,c,y;
